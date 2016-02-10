@@ -21,7 +21,7 @@ module.exports = function (app) {
 				    app.socket.users.push({'id':socket.id, 'pseudo': pseudo});
 				    pseudo = ent.encode(pseudo);
 				    socket.pseudo = pseudo;
-				    app.socket.io.emit('nouveau_client', pseudo, app.socket.users);
+				    app.socket.io.emit('nouveau_client', {'pseudo':pseudo, 'users':app.socket.users});
 				    // this.emit('nouveau_client', {'pseudo':pseudo, 'users':app.socket.users});
 				});
 
