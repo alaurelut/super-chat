@@ -53,7 +53,9 @@
 
 
         // Quand un nouveau client se connecte, on affiche l'information
-        socket.on('nouveau_client', function(pseudo, users) {
+        socket.on('nouveau_client', function(data) {
+            var pseudo = data.pseudo;
+            var users = data.users;
             $('#zone_users').empty();
             for (var i = 0; i < users.length; i++) {
                 $('#zone_users').append('<li id=' + users[i].id +'>' + users[i].pseudo + ' </li>');
