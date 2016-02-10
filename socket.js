@@ -53,7 +53,7 @@ module.exports = function (app) {
 		},
 
 		emit: function (channel, data) {
-			app.socket.io.emit(channel, data);
+			this.io.emit(channel, data);
 		}
 	}
 }
