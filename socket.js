@@ -21,21 +21,21 @@ module.exports = function (app) {
 				    app.socket.users.push({'id':socket.id, 'pseudo': pseudo});
 				    pseudo = ent.encode(pseudo);
 				    socket.pseudo = pseudo;
-				    // app.socket.io.emit('nouveau_client', pseudo, app.socket.users);
-				    this.emit('nouveau_client', {'pseudo':pseudo, 'users':app.socket.users});
+				    app.socket.io.emit('nouveau_client', pseudo, app.socket.users);
+				    // this.emit('nouveau_client', {'pseudo':pseudo, 'users':app.socket.users});
 				});
 
 				// Dès qu'on reçoit un message, on récupère le pseudo de son auteur et on le transmet aux autres personnes
 				socket.on('message', function (message) {
 				    message = ent.encode(message);
 				    var now = new Date();
-				    // app.socket.io.emit('message', {date: dateFormat(now, "h:MM:ss"), pseudo: socket.pseudo, message: message});
-				    this.emit('message', {date: dateFormat(now, "h:MM:ss"), pseudo: socket.pseudo, message: message});
+				    app.socket.io.emit('message', {date: dateFormat(now, "h:MM:ss"), pseudo: socket.pseudo, message: message});
+				    // this.emit('message', {date: dateFormat(now, "h:MM:ss"), pseudo: socket.pseudo, message: message});
 				});
 
 				socket.on('isTyping', function () {
-				    // app.socket.io.emit('isTyping', socket.pseudo);
-				    this.emit('isTyping', socket.pseudo);
+				    app.socket.io.emit('isTyping', socket.pseudo);
+				    // this.emit('isTyping', socket.pseudo);
 				});
 
 				socket.on('disconnect', function () {
@@ -46,8 +46,8 @@ module.exports = function (app) {
 				        }
 				    }
 
-				    // app.socket.io.emit('userDeconnection', socket.id);
-				    this.emit('userDeconnection', socket.id);
+				    app.socket.io.emit('userDeconnection', socket.id);
+				    // this.emit('userDeconnection', socket.id);
 				});
 			});
 		},
